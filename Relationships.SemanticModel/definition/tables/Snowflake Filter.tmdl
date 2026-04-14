@@ -1,0 +1,26 @@
+table 'Snowflake Filter'
+	lineageTag: c5798fa6-5f8c-4956-89e2-7fb152e0b0bb
+
+	column Test
+		dataType: string
+		lineageTag: 5fd1caeb-2809-41e0-a2ba-684489bca8da
+		summarizeBy: none
+		sourceColumn: Test
+
+		annotation SummarizationSetBy = Automatic
+
+	partition 'Snowflake Filter' = m
+		mode: import
+		source =
+				let
+				    Source = Table.FromRows(Json.Document(Binary.Decompress(Binary.FromText("i45WclSK1YlWclKKjQUA", BinaryEncoding.Base64), Compression.Deflate)), let _t = ((type nullable text) meta [Serialized.Text = true]) in type table [Test = _t]),
+				    #"Changed Type" = Table.TransformColumnTypes(Source,{{"Test", type text}})
+				in
+				    #"Changed Type"
+
+	changedProperty = Name
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Table
+

@@ -1,0 +1,21 @@
+model Model
+	culture: en-US
+	defaultPowerBIDataSourceVersion: powerBI_V3
+	sourceQueryCulture: en-US
+	dataAccessOptions
+		legacyRedirects
+		returnErrorValuesAsNull
+
+annotation __PBI_TimeIntelligenceEnabled = 0
+
+annotation PBI_QueryOrder = ["Dimension Table","Fact Table","OneToOne","Snowflake Filter","Fact Table 2"]
+
+annotation PBI_ProTooling = ["DevMode","TMDLView_Desktop","TMDL-Extension"]
+
+ref table 'Dimension Table'
+ref table 'Fact Table'
+ref table OneToOne
+ref table 'Snowflake Filter'
+ref table 'Fact Table 2'
+
+ref cultureInfo en-US

@@ -1,0 +1,11 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/gitIntegration/platformProperties/2.0.0/schema.json",
+  "metadata": {
+    "type": "Report",
+    "displayName": "ThinReportSampleModel"
+  },
+  "config": {
+    "version": "2.0",
+    "logicalId": "809c3b51-0a54-43ec-9226-a8778fee3705"
+  }
+}

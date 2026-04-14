@@ -1,0 +1,26 @@
+table 'Fact Table 2'
+	lineageTag: dd4257f9-18af-46db-abb3-4fab05fb3b95
+
+	column 'Test ID'
+		dataType: string
+		lineageTag: 807c75f5-5daa-41f3-8597-a4fd3f31b042
+		summarizeBy: none
+		sourceColumn: Test ID
+
+		annotation SummarizationSetBy = Automatic
+
+	partition 'Fact Table 2' = m
+		mode: import
+		source =
+				let
+				    Source = Table.FromRows(Json.Document(Binary.Decompress(Binary.FromText("i45WclSK1YGRTkikc0yeM4QBJl1i8lwgDDDpCiNjAQ==", BinaryEncoding.Base64), Compression.Deflate)), let _t = ((type nullable text) meta [Serialized.Text = true]) in type table [#"Test ID" = _t]),
+				    #"Changed Type" = Table.TransformColumnTypes(Source,{{"Test ID", type text}})
+				in
+				    #"Changed Type"
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Table
+
+	
+

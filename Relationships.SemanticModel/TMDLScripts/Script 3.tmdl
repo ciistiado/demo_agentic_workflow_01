@@ -1,0 +1,123 @@
+createOrReplace
+
+	table 'Dimension Table'
+		lineageTag: 7c59e265-308d-4829-bf10-63a72f41b08d
+
+		column Test
+			dataType: string
+			lineageTag: 2411bd3d-7390-4eff-aa84-8e2c5ff49b6b
+			summarizeBy: none
+			sourceColumn: Test
+
+			annotation SummarizationSetBy = Automatic
+
+		partition 'Dimension Table' = m
+			mode: import
+			source =
+					let
+					    Source = Table.FromRows(Json.Document(Binary.Decompress(Binary.FromText("i45WclSK1YlWcgKTzmDSRSk2FgA=", BinaryEncoding.Base64), Compression.Deflate)), let _t = ((type nullable text) meta [Serialized.Text = true]) in type table [Test = _t]),
+					    
+						#"Changed Type" = Table.TransformColumnTypes(Source,{{"Test", type text}})
+					in
+					    #"Changed Type"
+
+		annotation PBI_ResultType = Table
+
+	table 'Fact Table'
+		lineageTag: 0351759f-2dfd-406a-bdf5-b03ee1db2703
+
+		column 'Test ID'
+			dataType: string
+			lineageTag: e198ad69-6fde-41e3-a77e-e621459c3f7a
+			summarizeBy: none
+			sourceColumn: Test ID
+
+			annotation SummarizationSetBy = Automatic
+
+		partition 'Fact Table' = m
+			mode: import
+			source =
+					let
+					    Source = Table.FromRows(Json.Document(Binary.Decompress(Binary.FromText("i45WclSK1YGRTkikc0yeM4QBJl1i8lwgDDDpCiNjAQ==", BinaryEncoding.Base64), Compression.Deflate)), let _t = ((type nullable text) meta [Serialized.Text = true]) in type table [#"Test ID" = _t]),
+					    #"Changed Type" = Table.TransformColumnTypes(Source,{{"Test ID", type text}})
+					in
+					    #"Changed Type"
+
+		annotation PBI_NavigationStepName = Navigation
+
+		annotation PBI_ResultType = Table
+
+	table 'Fact Table 2'
+		lineageTag: dd4257f9-18af-46db-abb3-4fab05fb3b95
+
+		column 'Test ID'
+			dataType: string
+			lineageTag: 807c75f5-5daa-41f3-8597-a4fd3f31b042
+			summarizeBy: none
+			sourceColumn: Test ID
+
+			annotation SummarizationSetBy = Automatic
+
+		partition 'Fact Table 2' = m
+			mode: import
+			source =
+					let
+					    Source = Table.FromRows(Json.Document(Binary.Decompress(Binary.FromText("i45WclSK1YGRTkikc0yeM4QBJl1i8lwgDDDpCiNjAQ==", BinaryEncoding.Base64), Compression.Deflate)), let _t = ((type nullable text) meta [Serialized.Text = true]) in type table [#"Test ID" = _t]),
+					    #"Changed Type" = Table.TransformColumnTypes(Source,{{"Test ID", type text}})
+					in
+					    #"Changed Type"
+
+		annotation PBI_NavigationStepName = Navigation
+
+		annotation PBI_ResultType = Table
+
+	table OneToOne
+		lineageTag: 8ec713f6-bf4f-43cf-85c5-b3de22758baa
+
+		column Test
+			dataType: string
+			lineageTag: 56497bc8-6d0d-48a4-9d61-3602b0e570cb
+			summarizeBy: none
+			sourceColumn: Test
+
+			annotation SummarizationSetBy = Automatic
+
+		partition OneToOne = m
+			mode: import
+			source =
+					let
+					    Source = Table.FromRows(Json.Document(Binary.Decompress(Binary.FromText("i45WclSK1YlWcgKTzmDSRSk2FgA=", BinaryEncoding.Base64), Compression.Deflate)), let _t = ((type nullable text) meta [Serialized.Text = true]) in type table [Test = _t]),
+					    #"Changed Type" = Table.TransformColumnTypes(Source,{{"Test", type text}})
+					in
+					    #"Changed Type"
+
+		annotation PBI_NavigationStepName = Navigation
+
+		annotation PBI_ResultType = Table
+
+	table 'Snowflake Filter'
+		lineageTag: c5798fa6-5f8c-4956-89e2-7fb152e0b0bb
+
+		column Test
+			dataType: string
+			lineageTag: 5fd1caeb-2809-41e0-a2ba-684489bca8da
+			summarizeBy: none
+			sourceColumn: Test
+
+			annotation SummarizationSetBy = Automatic
+
+		partition 'Snowflake Filter' = m
+			mode: import
+			source =
+					let
+					    Source = Table.FromRows(Json.Document(Binary.Decompress(Binary.FromText("i45WclSK1YlWclKKjQUA", BinaryEncoding.Base64), Compression.Deflate)), let _t = ((type nullable text) meta [Serialized.Text = true]) in type table [Test = _t]),
+					    #"Changed Type" = Table.TransformColumnTypes(Source,{{"Test", type text}})
+					in
+					    #"Changed Type"
+
+		changedProperty = Name
+
+		annotation PBI_NavigationStepName = Navigation
+
+		annotation PBI_ResultType = Table
+

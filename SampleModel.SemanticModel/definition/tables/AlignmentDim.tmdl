@@ -1,0 +1,72 @@
+table AlignmentDim
+	lineageTag: bfdfe08d-e2c6-4102-a232-3c7c68b03669
+
+	column AlignmentID
+		dataType: int64
+		formatString: 0
+		lineageTag: 5fe32fbe-cb3d-4291-909d-05db95b3f299
+		summarizeBy: none
+		sourceColumn: AlignmentID
+
+		annotation SummarizationSetBy = Automatic
+
+	column Alignment
+		dataType: string
+		lineageTag: 0911cc1e-86b5-4fd7-b8ad-ff20a910f842
+		summarizeBy: none
+		sourceColumn: Alignment
+
+		annotation SummarizationSetBy = Automatic
+
+	column AlignmentKey
+		dataType: string
+		lineageTag: d3157c54-4773-49c6-b33b-6c8583855468
+		summarizeBy: none
+		sourceColumn: AlignmentKey
+
+		annotation SummarizationSetBy = Automatic
+
+	partition AlignmentDim-efd4d92e-b9f5-41bd-a54f-2260dec05954 = m
+		mode: import
+		queryGroup: Dimensions
+		source =
+				let
+				    // Uses the configured Marvel data source for this dimension
+				    Source = MarvelSource,
+				    // Kept only the column that holds alignment text values
+				    #"Selected Columns" = Table.SelectColumns(Source,{"ALIGN"}),
+				    // Produced unique alignment rows by removing duplicates
+				    #"Removed Duplicate Rows" = Table.Distinct(#"Selected Columns"),
+				    // Created a duplicate of the alignment column to form a key
+				    #"Duplicated Alignment Column" = Table.DuplicateColumn(#"Removed Duplicate Rows", "ALIGN", "ALIGN - Copy"),
+				    // Renamed the duplicated column to AlignmentKey for downstream use
+				    #"Renamed Duplicate To Alignment Key" = Table.RenameColumns(#"Duplicated Alignment Column",{{"ALIGN - Copy", "AlignmentKey"}}),
+				    // Split alignment text into two parts using space as separator
+				    #"Split Alignment Into Parts" = Table.SplitColumn(#"Renamed Duplicate To Alignment Key", "ALIGN", Splitter.SplitTextByDelimiter(" ", QuoteStyle.Csv), {"ALIGN.1", "ALIGN.2"}),
+				    // Ensured split parts are typed as text for consistency
+				    #"Changed Split Parts To Text" = Table.TransformColumnTypes(#"Split Alignment Into Parts",{{"ALIGN.1", type text}, {"ALIGN.2", type text}}),
+				    // Renamed the first split part to the friendly Alignment column
+				    #"Renamed First Part To Alignment" = Table.RenameColumns(#"Changed Split Parts To Text",{{"ALIGN.1", "Alignment"}}),
+				    // Ordered alignment values alphabetically for stable output
+				    #"Sorted Alignment Ascending" = Table.Sort(#"Renamed First Part To Alignment",{{"Alignment", Order.Ascending}}),
+				    // Replaced empty alignment values with a readable placeholder
+				    #"Replaced Blanks With Not Available" = Table.ReplaceValue(#"Sorted Alignment Ascending","","Not Available",Replacer.ReplaceValue,{"Alignment"}),
+				    // Added a zero-based index to create a surrogate integer ID
+				    #"Added Zero Based Index" = Table.AddIndexColumn(#"Replaced Blanks With Not Available", "Index", 0, 1, Int64.Type),
+				    // Renamed the index column to the semantic AlignmentID identifier
+				    #"Renamed Index To AlignmentID" = Table.RenameColumns(#"Added Zero Based Index",{{"Index", "AlignmentID"}}),
+				    // Reordered columns to place the ID first and descriptive columns after
+				    #"Reordered For Output" = Table.ReorderColumns(#"Renamed Index To AlignmentID",{"AlignmentID", "Alignment", "ALIGN.2", "AlignmentKey"}),
+				    // Removed the temporary second split part that is no longer needed
+				    #"Removed Temporary Split Column" = Table.RemoveColumns(#"Reordered For Output",{"ALIGN.2"}),
+				    // Ensured alignment key column name is standardized for consumers
+				    #"Standardized AlignmentKey Name" = Table.RenameColumns(#"Removed Temporary Split Column",{{"AlignmentKey", "AlignmentKey"}}),
+				    // Produced final deterministic ordering by sorting on the alignment key
+				    #"Sorted By AlignmentKey" = Table.Sort(#"Standardized AlignmentKey Name",{{"AlignmentKey", Order.Ascending}})
+				in
+				    #"Sorted By AlignmentKey"
+
+	annotation PBI_ResultType = Table
+
+	annotation PBI_NavigationStepName = Navigation
+

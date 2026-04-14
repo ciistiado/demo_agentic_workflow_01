@@ -1,0 +1,24 @@
+table OneToOne
+	lineageTag: 8ec713f6-bf4f-43cf-85c5-b3de22758baa
+
+	column Test
+		dataType: string
+		lineageTag: 56497bc8-6d0d-48a4-9d61-3602b0e570cb
+		summarizeBy: none
+		sourceColumn: Test
+
+		annotation SummarizationSetBy = Automatic
+
+	partition OneToOne = m
+		mode: import
+		source =
+				let
+				    Source = Table.FromRows(Json.Document(Binary.Decompress(Binary.FromText("i45WclSK1YlWcgKTzmDSRSk2FgA=", BinaryEncoding.Base64), Compression.Deflate)), let _t = ((type nullable text) meta [Serialized.Text = true]) in type table [Test = _t]),
+				    #"Changed Type" = Table.TransformColumnTypes(Source,{{"Test", type text}})
+				in
+				    #"Changed Type"
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Table
+

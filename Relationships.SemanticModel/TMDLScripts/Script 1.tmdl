@@ -1,0 +1,21 @@
+createOrReplace
+
+	relationship a7d15640-1fdf-d096-7007-2a8f85875763
+		fromColumn: 'Fact Table'.'Test ID'
+		toColumn: 'Dimension Table'.Test
+
+	relationship 90db0f4b-ba1e-38c5-4909-f130fe1c7ea6
+		isActive: false
+		fromColumn: 'Fact Table 2'.'Test ID'
+		toColumn: 'Dimension Table'.Test
+
+	relationship 95910c9d-8c7a-5344-fb0d-7d56dc3c2804
+		crossFilteringBehavior: bothDirections
+		fromCardinality: one
+		fromColumn: OneToOne.Test
+		toColumn: 'Dimension Table'.Test
+
+	relationship fbf3cbbc-142e-004b-9aab-be6337177038
+		fromColumn: 'Fact Table'.'Test ID'
+		toColumn: 'Snowflake Filter'.Test
+
