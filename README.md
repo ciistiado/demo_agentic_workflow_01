@@ -1,6 +1,6 @@
 # Fabric Agentic Workflow Template
 
-This repository is a **template** for using [GitHub Agentic Workflows](https://github.com/github/gh-aw) with Microsoft Fabric Power BI semantic models. It demonstrates how an AI agent can automatically generate documentation for your semantic models using the [Power BI Modeling MCP Server](https://www.npmjs.com/package/@microsoft/powerbi-modeling-mcp), available as a pre-built container on [Docker Hub](https://hub.docker.com/repository/docker/kerski/powerbi-modeling-mcp/general).
+This repository is a **template** for using [GitHub Agentic Workflows](https://github.com/github/gh-aw) with Microsoft Fabric Power BI semantic models. It serves as a foundation for building your own specialized instructions to an agent — including building tests, checking for naming conventions, and more — all within the bounds of a GitHub Action. Out of the box, it demonstrates how an AI agent can automatically generate documentation for your semantic models using the [Power BI Modeling MCP Server](https://www.npmjs.com/package/@microsoft/powerbi-modeling-mcp), available as a pre-built container on [Docker Hub](https://hub.docker.com/repository/docker/kerski/powerbi-modeling-mcp/general).
 
 ## Getting Started — Clone to a Private Repository
 
