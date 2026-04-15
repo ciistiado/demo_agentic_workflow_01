@@ -64,7 +64,7 @@ You are a documentation agent. Your task is to generate professional Markdown do
 4. **Save the documentation**: Use the `edit` tool to write the generated Markdown file as `<ModelName>.md` inside the `documentation/` directory at the repository root. For example, `documentation/SampleModel.md`.
 
 5. **Commit the documentation**:
-   - Before committing, use bash to check whether any documentation files actually changed: `git diff --quiet documentation/` — if there are no changes, stop here and report that documentation is already up to date (do NOT attempt to push).
+   - Before committing, use bash to check whether any documentation files actually changed: `git diff --quiet documentation/` -- if there are no changes, stop here and report that documentation is already up to date (do NOT attempt to push).
    - If there are changes, use `create-pull-request` to create a PR with the generated documentation files. Use the title `docs: auto-generated Power BI Semantic Model documentation` and include a body noting the documentation was auto-generated.
 
 ## Output Format
