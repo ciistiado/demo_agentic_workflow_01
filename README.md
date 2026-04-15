@@ -1,8 +1,8 @@
 # Fabric Agentic Workflow Template
 
-This repository is a **template** for using [GitHub Agentic Workflows](https://github.com/github/gh-aw) with Microsoft Fabric Power BI semantic models. It serves as a foundation for building your own specialized instructions to an agent — including building tests, checking for naming conventions, and more — all within the bounds of a GitHub Action. Out of the box, it demonstrates how an AI agent can automatically generate documentation for your semantic models using the [Power BI Modeling MCP Server](https://www.npmjs.com/package/@microsoft/powerbi-modeling-mcp), available as a pre-built container on [Docker Hub](https://hub.docker.com/repository/docker/kerski/powerbi-modeling-mcp/general).
+This repository is a **template** for using [GitHub Agentic Workflows](https://github.com/github/gh-aw) with Microsoft Fabric Power BI semantic models. It serves as a foundation for building your own specialized instructions to an agent, including building tests, checking for naming conventions, and more, all within the bounds of a GitHub Action. Out of the box, it demonstrates how an AI agent can automatically generate documentation for your semantic models using the [Power BI Modeling MCP Server](https://www.npmjs.com/package/@microsoft/powerbi-modeling-mcp), available as a pre-built container on [Docker Hub](https://hub.docker.com/repository/docker/kerski/powerbi-modeling-mcp/general).
 
-## Getting Started — Clone to a Private Repository
+## Getting Started -- Clone to a Private Repository
 
 Because this template involves GitHub Actions secrets (tokens, credentials), we recommend hosting your copy in a **private repository**. GitHub does not allow forking a public repo as private, so use the steps below to mirror it instead.
 
@@ -67,7 +67,7 @@ The agentic workflow uses Copilot as its engine, which requires a `COPILOT_GITHU
 5. Under **Resource owner**, select your account or organization.
 6. Under **Repository access**, select the repository (or repositories) where the agentic workflow will run.
 7. Expand **Account permissions** and set the following:
-   - **Copilot** → **Read-only** — required for the Copilot engine to function
+   - **Copilot** → **Read-only** -- required for the Copilot engine to function
 8. Click **Generate token** and copy the value.
 9. In your repository, go to **Settings → Secrets and variables → Actions → Secrets**.
 10. Click **New repository secret**.
@@ -87,7 +87,7 @@ The agentic workflow uses the `create-pull-request` safe output to open PRs with
 
 Without this permission, the agent will be able to generate documentation but will fail when attempting to open a pull request.
 
-> **Note:** This template uses the pre-built [Power BI Modeling MCP Server container from Docker Hub](https://hub.docker.com/repository/docker/kerski/powerbi-modeling-mcp/general) (`kerski/powerbi-modeling-mcp:latest`). No container build or publishing step is required — the agentic workflow pulls the image directly from Docker Hub at runtime.
+> **Note:** This template uses the pre-built [Power BI Modeling MCP Server container from Docker Hub](https://hub.docker.com/repository/docker/kerski/powerbi-modeling-mcp/general) (`kerski/powerbi-modeling-mcp:latest`). No container build or publishing step is required -- the agentic workflow pulls the image directly from Docker Hub at runtime.
 
 ### Step 3: Test the Agentic Workflow
 
@@ -128,15 +128,15 @@ When the workflow runs, the Copilot agent will:
 
 GitHub Agentic Workflows use Markdown files (`.md`) with YAML frontmatter as the source definition. The key components:
 
-- **`on:`** — Standard GitHub Actions trigger events.
-- **`permissions:`** — Read-only permissions for the agent job itself.
-- **`safe-outputs:`** — Write operations (like `create-pull-request`) that are handled securely outside the agent sandbox. This is how the agent can create PRs without needing direct write access.
-- **`engine:`** — Specifies `copilot` as the AI engine.
-- **`tools:`** — Allowed tools the agent can use (e.g., `edit`, `bash` with allow-listed commands).
-- **`mcp-servers:`** — MCP servers available to the agent, specified as container images.
-- **Prompt body** — The Markdown body (below the frontmatter) serves as the agent's instructions.
+- **`on:`** -- Standard GitHub Actions trigger events.
+- **`permissions:`** -- Read-only permissions for the agent job itself.
+- **`safe-outputs:`** -- Write operations (like `create-pull-request`) that are handled securely outside the agent sandbox. This is how the agent can create PRs without needing direct write access.
+- **`engine:`** -- Specifies `copilot` as the AI engine.
+- **`tools:`** -- Allowed tools the agent can use (e.g., `edit`, `bash` with allow-listed commands).
+- **`mcp-servers:`** -- MCP servers available to the agent, specified as container images.
+- **Prompt body** -- The Markdown body (below the frontmatter) serves as the agent's instructions.
 
-The `.md` file is compiled into a `.lock.yml` file using `gh aw compile`. The `.lock.yml` is the actual GitHub Actions workflow that runs. **Never edit the `.lock.yml` directly** — always edit the `.md` source and recompile.
+The `.md` file is compiled into a `.lock.yml` file using `gh aw compile`. The `.lock.yml` is the actual GitHub Actions workflow that runs. **Never edit the `.lock.yml` directly** -- always edit the `.md` source and recompile.
 
 ## Customizing for Your Own Models
 
@@ -158,7 +158,7 @@ To use this template with your own semantic models:
 
 ## Acknowledgments
 
-- [Getting Started with GitHub Agentic Workflows: A Hands-On Guide](https://josh-ops.com/posts/github-agentic-workflows/) by josh-ops — for the excellent walkthrough on configuring GitHub Agentic Workflows.
+- [Getting Started with GitHub Agentic Workflows: A Hands-On Guide](https://josh-ops.com/posts/github-agentic-workflows/) by josh-ops -- for the excellent walkthrough on configuring GitHub Agentic Workflows.
 
 ## License
 
