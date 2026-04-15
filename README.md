@@ -59,17 +59,20 @@ Once your private repo is ready, continue with the [Setup Guide](#setup-guide) b
 
 ### Step 1: Set Up the `COPILOT_GITHUB_TOKEN`
 
-The agentic workflow uses Copilot as its engine, which requires a `COPILOT_GITHUB_TOKEN` secret. This is a **GitHub personal access token (classic)** that grants the workflow access to Copilot.
+The agentic workflow uses Copilot as its engine, which requires a `COPILOT_GITHUB_TOKEN` secret. This is a **fine-grained personal access token** that grants the workflow access to Copilot.
 
-1. Go to **GitHub → Settings → Developer settings → Personal access tokens → Tokens (classic)**.
-2. Click **Generate new token (classic)**.
+1. Go to **GitHub → Settings → Developer settings → Personal access tokens → Fine-grained tokens**.
+2. Click **Generate new token**.
 3. Give it a descriptive name (e.g., `Copilot Agentic Workflow`).
-4. Select the following **scopes**:
-   - `copilot` — required for the Copilot engine to function
-5. Click **Generate token** and copy the value.
-6. In your repository, go to **Settings → Secrets and variables → Actions → Secrets**.
-7. Click **New repository secret**.
-8. Set the name to `COPILOT_GITHUB_TOKEN` and paste the token value.
+4. Set an **Expiration** date appropriate for your use case.
+5. Under **Resource owner**, select your account or organization.
+6. Under **Repository access**, select the repository (or repositories) where the agentic workflow will run.
+7. Expand **Account permissions** and set the following:
+   - **Copilot** → **Read-only** — required for the Copilot engine to function
+8. Click **Generate token** and copy the value.
+9. In your repository, go to **Settings → Secrets and variables → Actions → Secrets**.
+10. Click **New repository secret**.
+11. Set the name to `COPILOT_GITHUB_TOKEN` and paste the token value.
 
 > **Note:** The compiled workflow (`.lock.yml`) also references `GH_AW_GITHUB_TOKEN`, `GH_AW_CI_TRIGGER_TOKEN`, and `GH_AW_GITHUB_MCP_SERVER_TOKEN`. These are automatically managed by the `gh aw` infrastructure. You only need to manually configure `COPILOT_GITHUB_TOKEN`.
 
@@ -196,7 +199,7 @@ To use this template with your own semantic models:
 | Agent fails to connect to MCP server | Ensure the container image exists in your GHCR namespace and is accessible. Run the publish workflow first. |
 | Agent cannot create a pull request | Check that **Workflow permissions** allow creating PRs (see [Step 2](#step-2-grant-github-actions-permission-to-create-pull-requests)). |
 | Workflow doesn't trigger on push | Verify the push was to `main` and the changed files match `*.SemanticModel/**`. |
-| `COPILOT_GITHUB_TOKEN` error | Ensure the secret is set correctly and the token has the `copilot` scope (see [Step 1](#step-1-set-up-the-copilot_github_token)). |
+| `COPILOT_GITHUB_TOKEN` error | Ensure the secret is set correctly and the token has the **Copilot** account permission set to **Read-only** (see [Step 1](#step-1-set-up-the-copilot_github_token)). |
 | Compiled `.lock.yml` is outdated | Run `gh aw compile` after editing the `.md` file and commit both files. |
 
 ## Acknowledgments
