@@ -62,7 +62,7 @@ The agentic workflow uses Copilot as its engine, which requires a `COPILOT_GITHU
 5. Under **Resource owner**, select your account or organization.
 6. Under **Repository access**, select the repository (or repositories) where the agentic workflow will run.
 7. Expand **Account permissions** and set the following:
-   - **Copilot** → **Read-only** -- required for the Copilot engine to function
+   - **Copilot Requests** → **Read-only** -- required for the Copilot engine to function
 8. Click **Generate token** and copy the value.
 9. In your repository, go to **Settings → Secrets and variables → Actions → Secrets**.
 10. Click **New repository secret**.
