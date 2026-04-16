@@ -6,8 +6,6 @@ This repository is a **template** for using [GitHub Agentic Workflows](https://g
 
 Because this template involves GitHub Actions secrets (tokens, credentials), we recommend hosting your copy in a **private repository**. GitHub does not allow forking a public repo as private, so use the steps below to mirror it instead.
 
-### Option A: Mirror via the command line
-
 ```bash
 # 1. Create a new private repo on GitHub (do NOT initialize it with a README)
 gh repo create <your-username>/github-agentic-workflow-power-bi-mcp-example --private --confirm
@@ -28,15 +26,6 @@ git clone https://github.com/<your-username>/github-agentic-workflow-power-bi-mc
 cd github-agentic-workflow-power-bi-mcp-example
 ```
 
-### Option B: Import via the GitHub UI
-
-1. Go to [github.com/new/import](https://github.com/new/import).
-2. Paste the source URL: `https://github.com/clientfirsttech/github-agentic-workflow-power-bi-mcp-example`.
-3. Set the **Owner** to your account or organization.
-4. Choose a repository name (e.g., `github-agentic-workflow-power-bi-mcp-example`).
-5. Select **Private**.
-6. Click **Begin import** and wait for it to finish.
-
 Once your private repo is ready, continue with the [Setup Guide](#setup-guide) below.
 
 ## What's Included
@@ -52,7 +41,7 @@ Once your private repo is ready, continue with the [Setup Guide](#setup-guide) b
 - A GitHub repository with **admin access** (to configure secrets, permissions, and Actions)
 - Access to [GitHub Copilot](https://github.com/features/copilot) (required by the agentic workflow engine)
 
-**Note:** This is optional. If you want to modify this agentic flow, you will need the GitHub CLI installed locally with the agentic extensions.
+The GitHub CLI with the `gh-aw` extension is required to compile the agentic workflow.
 
 1. Install the [GitHub CLI](https://cli.github.com/)
 2. Install the [`gh-aw` extension](https://github.com/github/gh-aw):
@@ -95,7 +84,27 @@ Without this permission, the agent will be able to generate documentation but wi
 
 > **Note:** This template uses the pre-built [Power BI Modeling MCP Server container from Docker Hub](https://hub.docker.com/repository/docker/kerski/powerbi-modeling-mcp/general) (`kerski/powerbi-modeling-mcp:latest`). No container build or publishing step is required -- the agentic workflow pulls the image directly from Docker Hub at runtime.
 
-### Step 3: Test the Agentic Workflow
+### Step 3: Compile the Agentic Workflow
+
+After configuring permissions, clone your private repository locally (if you haven't already), compile the agentic workflow, and push the changes.
+
+```bash
+# Clone your private repo (skip if already cloned)
+git clone https://github.com/<your-username>/github-agentic-workflow-power-bi-mcp-example.git
+cd github-agentic-workflow-power-bi-mcp-example
+
+# Compile the agentic workflow
+gh aw compile
+
+# Commit and sync the compiled workflow
+git add .
+git commit -m "Compile agentic workflow"
+git push
+```
+
+This generates the `.lock.yml` file from the `.md` workflow definition. The `.lock.yml` is the actual GitHub Actions workflow that runs.
+
+### Step 4: Test the Agentic Workflow
 
 You can trigger the agentic workflow in two ways:
 
